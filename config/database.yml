@@ -14,3 +14,12 @@ test:
   password:
   min_messages: WARNING
   host: localhost
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: zen_menu_development
+  pool: 5
+  password:
+  min_messages: WARNING
+  host: localhost
