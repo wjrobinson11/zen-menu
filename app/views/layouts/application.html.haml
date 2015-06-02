@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %title ZenRecipes
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    #main-header-container
+      .logo-container
+        =image_tag('logo.png')
+    #main-nav-container
+      %ul.nav.nav-tabs
+        %li.disabled
+          %a{"data-toggle" => "tab", :href => "#home"} Menu
+        %li.disabled
+          %a{"data-toggle" => "tab", :href => "#profile"} Recipes
+        %li
+          %a{"data-toggle" => "tab", :href => '/ingredients'} Ingredients
+        / %li.dropdown
+        /   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+        /     Dropdown
+        /     %span.caret
+        /   %ul.dropdown-menu
+        /     %li
+        /       %a{"data-toggle" => "tab", :href => "#dropdown1"} Action
+        /     %li.divider
+        /     %li
+        /       %a{"data-toggle" => "tab", :href => "#dropdown2"} Another action
+    #main-content-container
+      = yield

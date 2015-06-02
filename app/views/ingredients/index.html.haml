@@ -1,0 +1,19 @@
+#ingredients-header-container
+#ingredients-main-container
+  .row
+    .col-lg-12
+      %table.table.table-hover
+        %thead
+          %tr
+            %th Name
+            %th Location
+            %th{:colspan => "3"}
+        %tbody
+          - @ingredients.each do |ingredient|
+            %tr
+              %td= link_to ingredient.name.capitalize, edit_ingredient_path(ingredient), class: 'ingredient-list-name'
+              %td= ingredient.location
+              %td= link_to 'Edit', edit_ingredient_path(ingredient), class: 'btn btn-xs btn-primary'
+              %td= link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
+      %br
+        = link_to '+ New Ingredient', new_ingredient_path, class: 'btn btn-success'

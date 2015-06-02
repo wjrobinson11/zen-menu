@@ -1,0 +1,26 @@
+body {
+  background-color: whitesmoke;
+}
+
+#main-header-container {
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#main-nav-container {
+  background-color: white;
+}
+
+#main-content-container {
+  padding: 50px;
+}
+
+@media(max-width: 500px) {
+  #main-header-container {
+    padding: 0px;
+  }
+  #main-content-container {
+    padding: 0px;
+  }
+}
