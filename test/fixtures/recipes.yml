@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: recipes
+#
+#  created_at   :datetime
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  serving_size :integer
+#  updated_at   :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  serving_size: 1
+
+two:
+  name: MyString
+  serving_size: 1
