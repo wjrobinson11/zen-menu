@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_ingredients, only: [:edit, :new]
 
   # GET /recipes
   # GET /recipes.json
@@ -67,8 +68,20 @@ class RecipesController < ApplicationController
       @recipe = Recipe.find(params[:id])
     end
 
+    def set_ingredients
+      @ingredients = Ingredient.order('lower(name)')
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :serving_size)
+      params.require(:recipe).permit(
+        :name,
+        :serving_size,
+        :recipe_line_items_attributes => [
+          :quantity,
+          :recipe_id,
+          :ingredient_id
+        ]
+      )
     end
 end

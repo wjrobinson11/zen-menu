@@ -8,12 +8,15 @@
         - @recipe.errors.full_messages.each do |message|
           %li= message
   .field
-    = f.label :name
+    = f.label :name, "Recipe name"
     %br
-      = f.text_field :name
+      = f.text_field :name, class: 'form-control'
+  =f.label "Ingredients"
   =f.fields_for :recipe_line_items do |ff|
     .field
-      =ff.number_field :quantity
+      =ff.select :ingredient_id, options_for_select(@ingredients.map{|ing|[ing.name.capitalize,ing.id]}.unshift(['Choose Ingredient', nil])), {}, {class: 'form-control'}
+    .field
+      =ff.number_field :quantity, class: 'form-control'
     =ff.label :quantity
     =ff.hidden_field :recipe_id
 
