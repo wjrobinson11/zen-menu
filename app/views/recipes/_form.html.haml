@@ -18,7 +18,7 @@
     -@recipe.recipe_line_items.each_with_index do |rli, index|
       .rli-form-recipe-line-item
         .field
-          =select_tag "recipe[recipe_line_items_attributes][#{index}][ingredient_id]", options_for_select(@ingredients.map{|ing|[ing.name.capitalize,ing.id]}.unshift(['Choose Ingredient', nil]), rli.ingredient_id), {class: 'form-control ingredients-dropdown'}
+          =select_tag "recipe[recipe_line_items_attributes][#{index}][ingredient_id]", options_for_select(@ingredients.map{|ing|[ing.name.capitalize,ing.id, {'data-unit_of_measurement' => ing.unit_of_measurement}]}.unshift(['Choose Ingredient', nil]), rli.ingredient_id), {class: "form-control ingredients-dropdown"}
 
         .rli-form-quantity-container
           .times-container

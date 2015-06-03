@@ -9,4 +9,11 @@ $(document).ready( function(){
     $(html).children('.rli-form-quantity-container').children('.rli-form-unit-of-measurement-container').html('')
     $(html).appendTo('.rli-form-recipe-line-items-container')
   });
+
+
+  $('.form-control.ingredients-dropdown').change(function(){
+    var unitOfMeasurement = $(this).children('option[value="' + $(this).val() + '"]').data('unit_of_measurement')
+    console.log(unitOfMeasurement)
+    $(this).parent().siblings('.rli-form-quantity-container').children('.rli-form-unit-of-measurement-container').html(unitOfMeasurement)
+  });
 });
