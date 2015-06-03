@@ -12,17 +12,37 @@
     %br
       = f.text_field :name, class: 'form-control'
   =f.label "Ingredients"
-  =f.fields_for :recipe_line_items do |ff|
-    .field
-      =ff.select :ingredient_id, options_for_select(@ingredients.map{|ing|[ing.name.capitalize,ing.id]}.unshift(['Choose Ingredient', nil])), {}, {class: 'form-control'}
-    .field
-      =ff.number_field :quantity, class: 'form-control'
-    =ff.label :quantity
-    =ff.hidden_field :recipe_id
+  =f.label "Quantities", class: 'rli-form-quantity-label'
+
+  .rli-form-recipe-line-items-container
+    -@recipe.recipe_line_items.each_with_index do |rli, index|
+      .rli-form-recipe-line-item
+        .field
+          =select_tag "recipe[recipe_line_items_attributes][#{index}][ingredient_id]", options_for_select(@ingredients.map{|ing|[ing.name.capitalize,ing.id]}.unshift(['Choose Ingredient', nil]), rli.ingredient_id), {class: 'form-control ingredients-dropdown'}
+
+        .rli-form-quantity-container
+          .times-container
+            X
+          .field
+            =number_field_tag "recipe[recipe_line_items_attributes][#{index}][quantity]", rli.quantity, class: 'form-control rli-quantity'
+          .rli-form-unit-of-measurement-container
+            =rli.ingredient.unit_of_measurement if rli.ingredient
+        =hidden_field_tag "recipe[recipe_line_items_attributes][#{index}][recipe_id]"
+  .rli-form-add-ingredient
+    =link_to 'Add Ingredient', 'javascript:void(0)', class: 'rli-form-add-ingredient-button btn btn-xs btn-primary'
+
+
+  / =f.fields_for :recipe_line_items do |ff|
+  /   .field
+  /     =ff.select :ingredient_id, options_for_select(@ingredients.map{|ing|[ing.name.capitalize,ing.id]}.unshift(['Choose Ingredient', nil])), {}, {class: 'form-control'}
+  /   .field
+  /     =ff.number_field :quantity, class: 'form-control'
+  /   =ff.label :quantity
+  /   =ff.hidden_field :recipe_id
 
   / .field
   /   = f.label :serving_size
   /   %br
   /     = f.number_field :serving_size
   .actions
-    = f.submit
+    = f.submit 'Submit', {class: 'btn btn-success rli-form-submit-button'}

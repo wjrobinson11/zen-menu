@@ -2,11 +2,12 @@
 #
 # Table name: ingredients
 #
-#  created_at :datetime
-#  id         :integer          not null, primary key
-#  location   :string(255)
-#  name       :string(255)
-#  updated_at :datetime
+#  categories          :string(255)
+#  created_at          :datetime
+#  id                  :integer          not null, primary key
+#  name                :string(255)
+#  unit_of_measurement :string(255)
+#  updated_at          :datetime
 #
 
 class Ingredient < ActiveRecord::Base

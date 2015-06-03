@@ -42,6 +42,7 @@ class RecipesController < ApplicationController
   # PATCH/PUT /recipes/1.json
   def update
     respond_to do |format|
+      update_recipe_line_items
       if @recipe.update(recipe_params)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
         format.json { render :show, status: :ok, location: @recipe }
@@ -83,5 +84,13 @@ class RecipesController < ApplicationController
           :ingredient_id
         ]
       )
+    end
+
+    def update_recipe_line_items
+      @recipe.recipe_line_items.destroy_all
+      recipe_line_items = recipe_params['recipe_line_items_attributes'].values.each do |atts|
+        @recipe.recipe_line_items.create(atts)
+      end
+      params['recipe'].delete('recipe_line_items_attributes')
     end
 end

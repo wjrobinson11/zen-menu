@@ -1,3 +1,54 @@
 form.edit_recipe, form.new_recipe {
   width: 400px;
 }
+
+.form-control.ingredients-dropdown {
+  width: 220px;
+  float: left;
+}
+
+.form-control.rli-quantity {
+  width: 80px;
+  float: left;
+  margin-left: 10px;
+}
+
+.rli-form-quantity-container {
+  width: 150px;
+  float: left;
+}
+
+.form-control#recipe_name {
+  width: 220px;
+}
+
+.rli-form-quantity-container .times-container {
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-family: arial;
+}
+
+.rli-form-quantity-label {
+  float: right;
+  margin-right: 63px;
+}
+
+.rli-form-unit-of-measurement-container {
+  margin-top: 10px;
+  margin-left: 10px;
+  float: left;
+}
+
+.rli-form-add-ingredient_button {
+  float: left;
+  clear: both;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.rli-form-submit-button {
+  margin-top: 20px;
+  float: left;
+  clear: both;
+}
