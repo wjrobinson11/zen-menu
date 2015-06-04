@@ -2,7 +2,7 @@
 #
 # Table name: ingredients
 #
-#  categories          :string(255)
+#  category            :string(255)
 #  created_at          :datetime
 #  id                  :integer          not null, primary key
 #  name                :string(255)
