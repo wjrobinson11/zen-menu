@@ -10,8 +10,8 @@
         %tbody
           - @recipes.each do |recipe|
             %tr
-              %td=link_to recipe.name, edit_recipe_path(recipe)
+              %td=link_to recipe.name, edit_recipe_path(recipe), class: 'recipe-list-name'
               %td= link_to 'Edit', edit_recipe_path(recipe), class: 'btn btn-xs btn-primary'
-              %td= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
+              %td= link_to 'Delete', recipe, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
       %br
         = link_to '+ New Recipe', new_recipe_path, class: 'btn btn-success'

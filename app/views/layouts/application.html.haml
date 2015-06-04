@@ -13,9 +13,9 @@
       %ul.nav.nav-tabs
         %li.disabled
           %a{"data-toggle" => "tab", :href => "#home"} Menu
-        %li
+        %li{class: ('active' if params[:controller] == 'recipes')}
           %a{"data-toggle" => "tab", :href => "/recipes"} Recipes
-        %li
+        %li{class: ('active' if params[:controller] == 'ingredients')}
           %a{"data-toggle" => "tab", :href => '/ingredients'} Ingredients
         / %li.dropdown
         /   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}

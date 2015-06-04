@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.order('name')
   end
 
   # GET /recipes/1
@@ -78,6 +78,7 @@ class RecipesController < ApplicationController
       params.require(:recipe).permit(
         :name,
         :serving_size,
+        :notes,
         :recipe_line_items_attributes => [
           :quantity,
           :recipe_id,

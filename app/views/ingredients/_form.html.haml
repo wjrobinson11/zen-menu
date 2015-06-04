@@ -1,0 +1,23 @@
+= form_for(@ingredient) do |f|
+  - if @ingredient.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@ingredient.errors.count, "error")
+        prohibited this ingredient from being saved:
+      %ul
+        - @ingredient.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :name
+    %br
+      = f.text_field :name, class: 'form-control'
+  .field
+    = f.label :category
+    %br
+      = f.select :category, ['Fruits', 'Vegetables', 'Cereals', 'Groceries', 'Milk Products', 'Others'], {}, {class: 'form-control'}
+  .field
+    = f.label :unit_of_measurement
+    %br
+      = f.select :unit_of_measurement, ['kg', 'g', 'l', 'cl', 'pc'], {}, {class: 'form-control'}
+  .actions
+    = f.submit 'Submit', {class: 'btn btn-success'}

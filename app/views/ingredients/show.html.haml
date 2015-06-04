@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @ingredient.name
+%p
+  %strong Category:
+  = @ingredient.category
+%p
+  %strong Unit of measurement:
+  = @ingredient.unit_of_measurement
+= link_to 'Edit', edit_ingredient_path(@ingredient)
+|
+\#{link_to 'Back', ingredients_path}

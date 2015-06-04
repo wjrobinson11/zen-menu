@@ -6,14 +6,20 @@ body {
   text-align: center;
   padding-top: 50px;
   padding-bottom: 50px;
+  border-top: 50px solid #333;
 }
 
 #main-nav-container {
   background-color: white;
 }
+#main-nav-container .nav.nav-tabs {
+  width: 300px;
+  margin: 0 auto;
+}
 
 #main-content-container {
   padding: 50px;
+  padding-bottom: 200px;
 }
 
 @media(max-width: 500px) {

@@ -11,6 +11,11 @@
     = f.label :name, "Recipe name"
     %br
       = f.text_field :name, class: 'form-control'
+  .field
+    = f.label :notes
+    %br
+    =f.text_area :notes, class: 'form-control'
+  %br
   =f.label "Ingredients"
   =f.label "Quantities", class: 'rli-form-quantity-label'
 
@@ -28,6 +33,8 @@
               =number_field_tag "recipe[recipe_line_items_attributes][#{index}][quantity]", rli.quantity, class: 'form-control rli-quantity'
             .rli-form-unit-of-measurement-container
               =rli.ingredient.unit_of_measurement if rli.ingredient
+          .rli-form-delete-ingredient-container
+            =link_to 'Remove', 'javascript:void(0)', class: 'btn btn-danger btn-xs remove-rli-button'
           =hidden_field_tag "recipe[recipe_line_items_attributes][#{index}][recipe_id]", @recipe.id
     -else
       .rli-form-recipe-line-item
@@ -40,6 +47,8 @@
           .field
             =number_field_tag "recipe[recipe_line_items_attributes][0][quantity]", nil, class: 'form-control rli-quantity'
           .rli-form-unit-of-measurement-container
+        .rli-form-delete-ingredient-container
+          =link_to 'Remove', 'javascript:void(0)', class: 'btn btn-danger btn-xs remove-rli-button'
             
         =hidden_field_tag "recipe[recipe_line_items_attributes][0][recipe_id]", @recipe.id
   .rli-form-add-ingredient
@@ -60,3 +69,40 @@
   /     = f.number_field :serving_size
   .actions
     = f.submit 'Submit', {class: 'btn btn-success rli-form-submit-button'}
+
+:javascript
+  $(document).ready( function(){
+    // Functionality to add new rli form field
+    $('body').on( 'click', '.rli-form-add-ingredient-button', function(){
+      console.log($('.rli-form-recipe-line-item-container').html())
+      var html = $('.rli-form-recipe-line-item:first').clone(true)
+      var newSelectIngredientName = "recipe[recipe_line_items_attributes][" + $('.rli-form-recipe-line-item').length + "][ingredient_id]"
+      var newQuantityName = "recipe[recipe_line_items_attributes][" + $('.rli-form-recipe-line-item').length + "][quantity]"
+      $(html).children('.field').children('select.ingredients-dropdown').attr('name', newSelectIngredientName).val('')
+      $(html).children('.rli-form-quantity-container').children('.field').children('.rli-quantity').attr('name', newQuantityName).attr('value','').val('')
+      $(html).children('.rli-form-quantity-container').children('.rli-form-unit-of-measurement-container').html('')
+      $(html).appendTo('.rli-form-recipe-line-items-container')
+      $('.remove-rli-button').show();
+    });
+
+
+    // Functionality to remove recipe line item
+    $('body').on( 'click', '.remove-rli-button', function(){
+      $(this).closest('.rli-form-recipe-line-item').remove();
+      if( $('.rli-form-recipe-line-item').length == 1 ){
+        $('.remove-rli-button').hide();
+      }
+    });
+
+
+    // Change unit of measurement based on which ingredient is selected
+    $('body').on( 'change', '.form-control.ingredients-dropdown', function(){
+      var unitOfMeasurement = $(this).children('option[value="' + $(this).val() + '"]').data('unit_of_measurement')
+      console.log(unitOfMeasurement)
+      $(this).parent().siblings('.rli-form-quantity-container').children('.rli-form-unit-of-measurement-container').html(unitOfMeasurement)
+    });
+
+    if( $('.rli-form-recipe-line-item').length == 1 ){
+      $('.remove-rli-button').hide();
+    }
+  });

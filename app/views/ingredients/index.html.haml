@@ -6,13 +6,15 @@
         %thead
           %tr
             %th Name
-            %th Location
+            %th Category
+            %th Measurement
             %th{:colspan => "3"}
         %tbody
           - @ingredients.each do |ingredient|
             %tr
               %td= link_to ingredient.name.capitalize, edit_ingredient_path(ingredient), class: 'ingredient-list-name'
-              %td= ingredient.location
+              %td= ingredient.category
+              %td= ingredient.unit_of_measurement
               %td= link_to 'Edit', edit_ingredient_path(ingredient), class: 'btn btn-xs btn-primary'
               %td= link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
       %br

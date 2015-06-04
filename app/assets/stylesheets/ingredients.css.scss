@@ -1,6 +1,6 @@
-// Place all the styles related to the Ingredients controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+form.edit_ingredient, form.new_ingredient {
+  width: 460px;
+}
 
 #ingredients-header-container {
   margin: 0 auto;
@@ -15,6 +15,16 @@
 .ingredient-list-name {
   color: #333333;
   font-size: 17px;
+}
+
+#ingredient_category.form-control {
+  width: 140px;
+}
+#ingredient_name.form-control {
+  width: 220px;
+}
+#ingredient_unit_of_measurement.form-control {
+  width: 60px;
 }
 
 @media(max-width: 800px) {

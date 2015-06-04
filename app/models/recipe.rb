@@ -5,6 +5,7 @@
 #  created_at   :datetime
 #  id           :integer          not null, primary key
 #  name         :string(255)
+#  notes        :text
 #  serving_size :integer
 #  updated_at   :datetime
 #
