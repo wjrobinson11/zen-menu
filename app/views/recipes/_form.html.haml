@@ -15,21 +15,35 @@
   =f.label "Quantities", class: 'rli-form-quantity-label'
 
   .rli-form-recipe-line-items-container
-    -@recipe.recipe_line_items.each_with_index do |rli, index|
+    -if @recipe.recipe_line_items.present?
+      -@recipe.recipe_line_items.each_with_index do |rli, index|
+        .rli-form-recipe-line-item
+          .field
+            =select_tag "recipe[recipe_line_items_attributes][#{index}][ingredient_id]", options_for_select(@ingredients.map{|ing|[ing.name.capitalize,ing.id, {'data-unit_of_measurement' => ing.unit_of_measurement}]}.unshift(['Choose Ingredient', nil]), rli.ingredient_id), {class: "form-control ingredients-dropdown"}
+
+          .rli-form-quantity-container
+            .times-container
+              X
+            .field
+              =number_field_tag "recipe[recipe_line_items_attributes][#{index}][quantity]", rli.quantity, class: 'form-control rli-quantity'
+            .rli-form-unit-of-measurement-container
+              =rli.ingredient.unit_of_measurement if rli.ingredient
+          =hidden_field_tag "recipe[recipe_line_items_attributes][#{index}][recipe_id]", @recipe.id
+    -else
       .rli-form-recipe-line-item
         .field
-          =select_tag "recipe[recipe_line_items_attributes][#{index}][ingredient_id]", options_for_select(@ingredients.map{|ing|[ing.name.capitalize,ing.id, {'data-unit_of_measurement' => ing.unit_of_measurement}]}.unshift(['Choose Ingredient', nil]), rli.ingredient_id), {class: "form-control ingredients-dropdown"}
+          =select_tag "recipe[recipe_line_items_attributes][0][ingredient_id]", options_for_select(@ingredients.map{|ing|[ing.name.capitalize,ing.id, {'data-unit_of_measurement' => ing.unit_of_measurement}]}.unshift(['Choose Ingredient', nil])), {class: "form-control ingredients-dropdown"}
 
         .rli-form-quantity-container
           .times-container
             X
           .field
-            =number_field_tag "recipe[recipe_line_items_attributes][#{index}][quantity]", rli.quantity, class: 'form-control rli-quantity'
+            =number_field_tag "recipe[recipe_line_items_attributes][0][quantity]", nil, class: 'form-control rli-quantity'
           .rli-form-unit-of-measurement-container
-            =rli.ingredient.unit_of_measurement if rli.ingredient
-        =hidden_field_tag "recipe[recipe_line_items_attributes][#{index}][recipe_id]"
+            
+        =hidden_field_tag "recipe[recipe_line_items_attributes][0][recipe_id]", @recipe.id
   .rli-form-add-ingredient
-    =link_to 'Add Ingredient', 'javascript:void(0)', class: 'rli-form-add-ingredient-button btn btn-xs btn-primary'
+    =link_to '+ Ingredient', 'javascript:void(0)', class: 'rli-form-add-ingredient-button btn btn-xs btn-primary'
 
 
   / =f.fields_for :recipe_line_items do |ff|
