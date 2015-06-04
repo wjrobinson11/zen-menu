@@ -45,7 +45,7 @@
           .times-container
             X
           .field
-            =number_field_tag "recipe[recipe_line_items_attributes][0][quantity]", nil, class: 'form-control rli-quantity'
+            =number_field_tag "recipe[recipe_line_items_attributes][0][quantity]", nil, class: 'form-control rli-quantity', :step => 'any'
           .rli-form-unit-of-measurement-container
         .rli-form-delete-ingredient-container
           =link_to 'Remove', 'javascript:void(0)', class: 'btn btn-danger btn-xs remove-rli-button'
