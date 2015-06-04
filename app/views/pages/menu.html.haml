@@ -1,0 +1,27 @@
+-content_for :head do
+  =stylesheet_link_tag "//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
+
+%label{:for => "from"} From
+%input#from{:name => "from", :type => "text"}
+%label{:for => "to"} to
+%input#to{:name => "to", :type => "text"}/
+
+:javascript
+  $(function() {
+    $( "#from" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onClose: function( selectedDate ) {
+        $( "#to" ).datepicker( "option", "minDate", selectedDate );
+      }
+    });
+    $( "#to" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onClose: function( selectedDate ) {
+        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+      }
+    });
+  });
