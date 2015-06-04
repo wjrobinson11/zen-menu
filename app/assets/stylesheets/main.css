@@ -15,6 +15,7 @@ body {
 #main-nav-container .nav.nav-tabs {
   width: 300px;
   margin: 0 auto;
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #main-content-container {
