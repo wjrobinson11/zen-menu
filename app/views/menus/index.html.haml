@@ -1,0 +1,33 @@
+%h1 Listing menus
+%table
+  %thead
+    %tr
+      %th Serve date
+      %th Breakfast time
+      %th Lunch time
+      %th Dinner time
+      %th Breakfast head count
+      %th Lunch head count
+      %th Dinner head count
+      %th Breakfast recipe ids
+      %th Dinner recipe ids
+      %th Lunch recipe ids
+      %th{:colspan => "3"}
+  %tbody
+    - @menus.each do |menu|
+      %tr
+        %td= menu.serve_date
+        %td= menu.breakfast_time
+        %td= menu.lunch_time
+        %td= menu.dinner_time
+        %td= menu.breakfast_head_count
+        %td= menu.lunch_head_count
+        %td= menu.dinner_head_count
+        %td= menu.breakfast_recipe_ids
+        %td= menu.dinner_recipe_ids
+        %td= menu.lunch_recipe_ids
+        %td= link_to 'Show', menu
+        %td= link_to 'Edit', edit_menu_path(menu)
+        %td= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' }
+%br
+  = link_to 'New Menu', new_menu_path

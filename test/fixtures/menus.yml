@@ -1,0 +1,44 @@
+# == Schema Information
+#
+# Table name: menus
+#
+#  breakfast_head_count :integer
+#  breakfast_recipe_ids :text
+#  breakfast_time       :time
+#  created_at           :datetime
+#  dinner_head_count    :integer
+#  dinner_recipe_ids    :text
+#  dinner_time          :time
+#  id                   :integer          not null, primary key
+#  lunch_head_count     :integer
+#  lunch_recipe_ids     :text
+#  lunch_time           :time
+#  serve_date           :date
+#  updated_at           :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  serve_date: 2015-06-05
+  breakfast_time: 2015-06-05 15:45:55
+  lunch_time: 2015-06-05 15:45:55
+  dinner_time: 2015-06-05 15:45:55
+  breakfast_head_count: 1
+  lunch_head_count: 1
+  dinner_head_count: 1
+  breakfast_recipe_ids: 
+  dinner_recipe_ids: 
+  lunch_recipe_ids: 
+
+two:
+  serve_date: 2015-06-05
+  breakfast_time: 2015-06-05 15:45:55
+  lunch_time: 2015-06-05 15:45:55
+  dinner_time: 2015-06-05 15:45:55
+  breakfast_head_count: 1
+  lunch_head_count: 1
+  dinner_head_count: 1
+  breakfast_recipe_ids: 
+  dinner_recipe_ids: 
+  lunch_recipe_ids: 

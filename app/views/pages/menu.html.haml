@@ -1,40 +1,16 @@
 #menu-header
-  %label{:for => "from"} New menu for
-  %input.form-control#from{:name => "from", :type => "text"}
-  %label{:for => "to"} to
-  %input.form-control#to{:name => "to", :type => "text"}/
-  =link_to "Build Menu", 'javascript:void(0)', class: 'btn btn-primary build-menu'
+#menu-body
+  #calendar-container
+    #calendar
+      
 
 :javascript
-  $(function() {
-    $( "#from" ).datepicker({
-      defaultDate: "+1w",
-      changeMonth: true,
-      numberOfMonths: 1,
-      onClose: function( selectedDate ) {
-        $( "#to" ).datepicker( "option", "minDate", selectedDate );
-      }
-    });
-    $( "#to" ).datepicker({
-      defaultDate: "+1w",
-      changeMonth: true,
-      numberOfMonths: 1,
-      onClose: function( selectedDate ) {
-        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
-      }
-    });
-  });
+  $(document).ready(function() {
 
-  $(document).ready( function(){
-    $('build-menu').click( function(){
-      function getDates(startDate, stopDate) {
-      var dateArray = new Array();
-      var currentDate = startDate;
-      while (currentDate <= stopDate) {
-        dateArray.push(currentDate)
-        currentDate = currentDate.addDays(1);
-      }
-      return dateArray;
-    }
-    });
+      // page is now ready, initialize the calendar...
+
+      $('#calendar').fullCalendar({
+          // put your options and callbacks here
+      })
+
   });
