@@ -5,6 +5,13 @@ class MenusController < ApplicationController
   # GET /menus.json
   def index
     @menus = Menu.all
+    @menu_data = @menus.map do |menu|
+      {
+        id: menu.id,
+        start: menu.serve_date,
+        title: "#{menu.format_breakfast_time} Breakfast (#{menu.breakfast_recipe_ids.count} recipes)\n#{menu.format_lunch_time} Lunch (#{menu.lunch_recipe_ids.count} recipes)\n#{menu.format_dinner_time} Dinner (#{menu.dinner_recipe_ids.count} recipes)"
+      }
+    end.to_json
   end
 
   # GET /menus/1
@@ -27,7 +34,6 @@ class MenusController < ApplicationController
   # POST /menus.json
   def create
     @menu = Menu.new(menu_params)
-
     respond_to do |format|
       if @menu.save
         format.html { redirect_to @menu, notice: 'Menu was successfully created.' }
@@ -71,7 +77,7 @@ class MenusController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def menu_params
-      consolidate_recipe_ids
+      format_recipe_ids
       params.require(:menu).permit(
         :serve_date,
         :breakfast_time,
@@ -80,21 +86,15 @@ class MenusController < ApplicationController
         :breakfast_head_count,
         :lunch_head_count,
         :dinner_head_count,
-        :breakfast_recipe_ids,
-        :dinner_recipe_ids,
-        :lunch_recipe_ids,
-        :breakfast_recipe_1,
-        :breakfast_recipe_2,
-        :lunch_recipe_1,
-        :lunch_recipe_2,
-        :lunch_recipe_3,
-        :dinner_recipe_1,
-        :dinner_recipe_2,
-        :dinner_recipe_3
+        {:breakfast_recipe_ids => []},
+        {:dinner_recipe_ids => []},
+        {:lunch_recipe_ids => []}
       )
     end
 
-    def consolidate_recipe_ids
-      # Combine breakfast_recipe_1 etc... into recipe_ids arrays
+    def format_recipe_ids
+      params[:menu][:breakfast_recipe_ids] = [params[:menu][:breakfast_recipe_1], params[:menu][:breakfast_recipe_2]].compact
+      params[:menu][:lunch_recipe_ids]     = [params[:menu][:lunch_recipe_1], params[:menu][:lunch_recipe_2], params[:menu][:lunch_recipe_3]].compact
+      params[:menu][:dinner_recipe_ids]    = [params[:menu][:dinner_recipe_1], params[:menu][:dinner_recipe_2], params[:menu][:dinner_recipe_3]].compact
     end
 end

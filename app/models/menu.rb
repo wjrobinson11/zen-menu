@@ -22,18 +22,32 @@ class Menu < ActiveRecord::Base
   serialize :lunch_recipe_ids
   serialize :dinner_recipe_ids
 
+  validate :serve_date, presence: true
+
   after_initialize :set_defaults
 
   def breakfast_recipes
     Recipe.where('id in (?)', breakfast_recipe_ids).sort
   end
 
-  def lunch_recipes
-    Recipe.where('id in (?)', lunch_recipe_ids).sort
-  end
-
   def dinner_recipes
     Recipe.where('id in (?)', dinner_recipe_ids).sort
+  end
+
+  def format_breakfast_time
+    breakfast_time.strftime('%k:%M') if breakfast_time
+  end
+
+  def format_dinner_time
+    dinner_time.strftime('%k:%M') if dinner_time
+  end
+
+  def format_lunch_time
+    lunch_time.strftime('%k:%M') if lunch_time
+  end
+
+  def lunch_recipes
+    Recipe.where('id in (?)', lunch_recipe_ids).sort
   end
 
   def recipe_ids
@@ -47,8 +61,14 @@ class Menu < ActiveRecord::Base
   private
 
   def set_defaults
-    self.breakfast_time = Time.new(2000, 01, 01, 8, 15)
-    self.lunch_time     = Time.new(2000, 01, 01, 12, 30)
-    self.dinner_time    = Time.new(2000, 01, 01, 18, 30)
+    self.breakfast_time ||= Time.new(2000, 01, 01, 8, 15)
+    self.lunch_time     ||= Time.new(2000, 01, 01, 12, 30)
+    self.dinner_time    ||= Time.new(2000, 01, 01, 18, 30)
+    self.breakfast_head_count ||= 0
+    self.lunch_head_count     ||= 0
+    self.dinner_head_count    ||= 0
+    self.breakfast_recipe_ids ||= []
+    self.lunch_recipe_ids     ||= []
+    self.dinner_recipe_ids    ||= []
   end
 end

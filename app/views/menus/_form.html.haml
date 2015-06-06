@@ -7,64 +7,39 @@
       %ul
         - @menu.errors.full_messages.each do |message|
           %li= message
-  / .field.
-  /   = f.label :serve_date
-  /   %br
-  /     = f.date_select :serve_date
-  / .field
-  /   = f.label :breakfast_time
-  /   %br
-  /     = f.time_select :breakfast_time
-  / .field
-  /   = f.label :lunch_time
-  /   %br
-  /     = f.time_select :lunch_time
-  / .field
-  /   = f.label :dinner_time
-  /   %br
-  /     = f.time_select :dinner_time
-  / .field
-  /   = f.label :breakfast_head_count
-  /   %br
-  /     = f.number_field :breakfast_head_count
-  / .field
-  /   = f.label :lunch_head_count
-  /   %br
-  /     = f.number_field :lunch_head_count
-  / .field
-  /   = f.label :dinner_head_count
-  /   %br
-  /     = f.number_field :dinner_head_count
 
 
   .field
     %h3 Breakfast
-    = f.label :breakfast_time, 'Time'
-    = f.time_select :breakfast_time, class: 'form-control'
-    %br
-    = f.label :breakfast_head_count, 'Head Count'
-    = f.number_field :breakfast_head_count, class: 'form-control menu-form-head-count'
+    .menu-form-time-container
+      = f.label :breakfast_time, 'Time'
+      = f.time_select :breakfast_time, class: 'form-control'
+    .menu-form-head-count-container
+      = f.label :breakfast_head_count, '# of people'
+      = f.number_field :breakfast_head_count, class: 'form-control menu-form-head-count'
     %br
       =select_tag 'menu[breakfast_recipe_1]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 1', nil]), @menu.breakfast_recipes[0].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
       =select_tag 'menu[breakfast_recipe_2]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 2', nil]), @menu.breakfast_recipes[1].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
   .field
     %h3 Lunch
-    = f.label :lunch_time, 'Time'
-    = f.time_select :lunch_time, class: 'form-control'
-    %br
-    = f.label :lunch_head_count, 'Head Count'
-    = f.number_field :lunch_head_count, class: 'form-control menu-form-head-count'
+    .menu-form-time-container
+      = f.label :lunch_time, 'Time'
+      = f.time_select :lunch_time, class: 'form-control'
+    .menu-form-head-count-container
+      = f.label :lunch_head_count, '# of people'
+      = f.number_field :lunch_head_count, class: 'form-control menu-form-head-count'
     %br
       =select_tag 'menu[lunch_recipe_1]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 1', nil]), @menu.lunch_recipes[0].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
       =select_tag 'menu[lunch_recipe_2]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 2', nil]), @menu.lunch_recipes[1].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
       =select_tag 'menu[lunch_recipe_3]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 3', nil]), @menu.lunch_recipes[2].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
   .field
     %h3 Dinner
-    = f.label :dinner_time, 'Time'
-    = f.time_select :dinner_time, class: 'form-control'
-    %br
-    = f.label :dinner_head_count, 'Head Count'
-    = f.number_field :dinner_head_count, class: 'form-control menu-form-head-count'
+    .menu-form-time-container
+      = f.label :dinner_time, 'Time'
+      = f.time_select :dinner_time, class: 'form-control'
+    .menu-form-head-count-container
+      = f.label :dinner_head_count, '# of people'
+      = f.number_field :dinner_head_count, class: 'form-control menu-form-head-count'
     %br
       =select_tag 'menu[dinner_recipe_1]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 1', nil]), @menu.dinner_recipes[0].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
       =select_tag 'menu[dinner_recipe_2]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 2', nil]), @menu.dinner_recipes[1].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}

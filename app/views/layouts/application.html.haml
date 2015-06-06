@@ -11,8 +11,8 @@
         =image_tag('logo.png')
     #main-nav-container
       %ul.nav.nav-tabs
-        %li{class: ('active' if params[:action] == "menu")}
-          %a{"data-toggle" => "tab", :href => "/"} Menu
+        %li{class: ('active' if params[:action] == "menus")}
+          %a{"data-toggle" => "tab", :href => "/menus"} Menu
         %li{class: ('active' if params[:controller] == 'recipes')}
           %a{"data-toggle" => "tab", :href => "/recipes"} Recipes
         %li{class: ('active' if params[:controller] == 'ingredients')}
