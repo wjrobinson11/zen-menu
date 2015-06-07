@@ -1,29 +1,68 @@
 #menu-header
 #menu-body
+  #dialog
   #calendar-container
     #calendar
-      
+
+=link_to 'hello', 'javascript:void(0)', class: 'test-link'
 
 :javascript
+  jQuery(
+    function() {
+     jQuery("#dialog")
+      .dialog(
+       {
+        bgiframe: true,
+        autoOpen: false,
+        height: 600,
+        width: 400,
+        modal: true
+       }
+      );
+     jQuery('body')
+      .bind(
+       'click',
+       function(e){
+        if(
+         jQuery('#dialog').dialog('isOpen')
+         && !jQuery(e.target).is('.ui-dialog, a')
+         && !jQuery(e.target).closest('.ui-dialog').length
+        ){
+         jQuery('#dialog').dialog('close');
+        }
+       }
+      );
+    }
+  );
+
   $(document).ready(function() {
 
-      // page is now ready, initialize the calendar...
+    // page is now ready, initialize the calendar...
 
-      $('#calendar').fullCalendar({
-        events: #{@menu_data},
-        eventRender: function(event, element) {
-          var new_description = '<div class="event-date" data-event_date="' + event.start._i + '"></div>';
-          element.append(new_description);
-        },
-        dayClick: function(date, jsEvent, view) {
-          console.log(date.format())
-          if( $('.event-date[data-event_date="' + date.format() + '"]').length === 1 ){
-            alert('Edit it')
-          } else {
-            alert('Create it')
-          }
+    $('#calendar').fullCalendar({
+      events: #{@menu_data},
+      eventRender: function(event, element) {
+        var new_description = '<div class="event-date" data-event_date="' + event.start._i + '" data-menu_id="' + event.id + '"></div>';
+        element.append(new_description);
+      },
+      dayClick: function(date, jsEvent, view) {
+        var currentMenu = $('.event-date[data-event_date="' + date.format() + '"]')
+        if( currentMenu.length === 1 ){
+          var menuId = $(currentMenu).data('menu_id')
+          setTimeout( function(){
+            $('#dialog').load('/menus/' + menuId + '/edit').dialog('open')
+          }, 500)
+        } else {
+          setTimeout( function(){
+            $('#dialog').load('/menus/new').dialog('open')
+          }, 500)
         }
-      })
+      }
+    })
+
+    $('.test-link').click(function(){
+      $('#dialog').dialog('open')
+    })
 
 
 

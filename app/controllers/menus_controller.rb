@@ -23,11 +23,14 @@ class MenusController < ApplicationController
   def new
     @menu = Menu.new
     @recipes = Recipe.all
+
+    render layout: false
   end
 
   # GET /menus/1/edit
   def edit
     @recipes = Recipe.all
+    render layout: false
   end
 
   # POST /menus
