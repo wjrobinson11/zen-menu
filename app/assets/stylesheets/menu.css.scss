@@ -1,14 +1,22 @@
-.menu-form-recipe-dropdown {
+.form-control.menu-form-recipe-dropdown {
   width: 100%;
+  width: 100%;
+  height: 25px;
+  margin-top: 5px;
+  font-size: 16px;
 }
 
-.menu-form-head-count {
-  width: 70px;
+.form-control.menu-form-head-count {
+  width: 60px;
+  height: 20px;
+  font-size: 12px;
+  padding: 1px 7px;
   display: inline;
+  float: none;
 }
 
 #menu-form-container {
-  width: 400px;
+  width: 350px;
 }
 
 .menu-form-time-container {
@@ -22,12 +30,18 @@
   width: 50%;
 }
 
+.menu-form-header {
+  margin: 3px 0px;
+  font-size: 23px;
+  text-decoration: underline;
+}
+
 #menu_breakfast_time_4i, #menu_breakfast_time_5i, #menu_lunch_time_4i, #menu_lunch_time_5i, #menu_dinner_time_4i, #menu_dinner_time_5i {
   display: inline;
-  width: 55px;
-  height: 40px;
+  font-size: 12px;
+  height: 20px;
+  width: 48px;
   padding: 8px 12px;
-  font-size: 16px;
   line-height: 1.42857143;
   color: #333333;
   background-color: #ffffff;
@@ -39,4 +53,14 @@
   -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+a.menu-form-back {
+  color: rgb(161, 73, 0);
+  float: left;
+  margin-top: 9px;
+}
+
+.menu-form-submit {
+  float: right;
 }

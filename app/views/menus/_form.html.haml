@@ -8,9 +8,9 @@
         - @menu.errors.full_messages.each do |message|
           %li= message
 
-
+  =f.hidden_field :serve_date, @serve_date
   .field
-    %h3 Breakfast
+    %h3.menu-form-header Breakfast
     .menu-form-time-container
       = f.label :breakfast_time, 'Time'
       = f.time_select :breakfast_time, class: 'form-control'
@@ -21,7 +21,7 @@
       =select_tag 'menu[breakfast_recipe_1]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 1', nil]), @menu.breakfast_recipes[0].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
       =select_tag 'menu[breakfast_recipe_2]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 2', nil]), @menu.breakfast_recipes[1].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
   .field
-    %h3 Lunch
+    %h3.menu-form-header Lunch
     .menu-form-time-container
       = f.label :lunch_time, 'Time'
       = f.time_select :lunch_time, class: 'form-control'
@@ -33,7 +33,7 @@
       =select_tag 'menu[lunch_recipe_2]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 2', nil]), @menu.lunch_recipes[1].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
       =select_tag 'menu[lunch_recipe_3]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 3', nil]), @menu.lunch_recipes[2].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
   .field
-    %h3 Dinner
+    %h3.menu-form-header Dinner
     .menu-form-time-container
       = f.label :dinner_time, 'Time'
       = f.time_select :dinner_time, class: 'form-control'
@@ -45,4 +45,5 @@
       =select_tag 'menu[dinner_recipe_2]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 2', nil]), @menu.dinner_recipes[1].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
       =select_tag 'menu[dinner_recipe_3]', options_for_select(@recipes.map{|rec|[rec.name,rec.id]}.unshift(['Choose Recipe 3', nil]), @menu.dinner_recipes[2].try(:id)), {class: 'form-control menu-form-recipe-dropdown'}
   .actions
-    = f.submit 'Submit', class: 'btn btn-success'
+    = link_to 'Back', menus_path, class: 'menu-form-back'
+    = f.submit 'Submit', class: 'btn btn-success menu-form-submit'

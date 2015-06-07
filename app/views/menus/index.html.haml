@@ -50,12 +50,14 @@
         if( currentMenu.length === 1 ){
           var menuId = $(currentMenu).data('menu_id')
           setTimeout( function(){
+            $('span.ui-dialog-title').text('Edit Menu for ' + date.format())
             $('#dialog').load('/menus/' + menuId + '/edit').dialog('open')
-          }, 500)
+          }, 200)
         } else {
+            $('span.ui-dialog-title').text('New Menu for ' + date.format())
           setTimeout( function(){
-            $('#dialog').load('/menus/new').dialog('open')
-          }, 500)
+            $('#dialog').load('/menus/new?serve_date=' + date.format().replace('-','')).dialog('open')
+          }, 200)
         }
       }
     })
