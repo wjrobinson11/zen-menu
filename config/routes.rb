@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get '/shopping_list' => 'menus#shopping_list'
+
   resources :menus
 
   resources :recipes

@@ -75,6 +75,59 @@ class MenusController < ApplicationController
     end
   end
 
+
+  def shopping_list
+    menu_ids = params[:menu_ids]
+    @menus            = Menu.where('id in (?)', menu_ids)
+    @ingredients_data = {
+      'Fruits'        => {},
+      'Vegetables'    => {},
+      'Cereals'       => {},
+      'Milk Products' => {},
+      'Groceries'     => {},
+      'Proteins'      => {},
+      'Others'        => {}
+    }
+    @menus.each do |menu|
+      menu.breakfast_recipes.each do |recipe|
+        recipe.recipe_line_items.map do |rli|
+          ing = rli.ingredient
+          next if ing.category.nil?
+          current_ingredient_quantity = @ingredients_data[ing.category][ing.name] rescue binding.pry
+          if current_ingredient_quantity.nil?
+            @ingredients_data[ing.category][ing.name] = (rli.quantity || 0) * menu.breakfast_head_count
+          else
+            @ingredients_data[ing.category][ing.name] += (rli.quantity || 0) * menu.breakfast_head_count
+          end
+        end
+      end
+      menu.lunch_recipes.each do |recipe|
+        recipe.recipe_line_items.map do |rli|
+          ing = rli.ingredient
+          next if ing.category.nil?
+          current_ingredient_quantity = @ingredients_data[ing.category][ing.name] rescue binding.pry
+          if current_ingredient_quantity.nil?
+            @ingredients_data[ing.category][ing.name] = (rli.quantity || 0) * menu.lunch_head_count
+          else
+            @ingredients_data[ing.category][ing.name] += (rli.quantity || 0) * menu.lunch_head_count
+          end
+        end
+      end
+      menu.dinner_recipes.each do |recipe|
+        recipe.recipe_line_items.map do |rli|
+          ing = rli.ingredient
+          next if ing.category.nil?
+          current_ingredient_quantity = @ingredients_data[ing.category][ing.name] rescue binding.pry
+          if current_ingredient_quantity.nil?
+            @ingredients_data[ing.category][ing.name] = (rli.quantity || 0) * menu.dinner_head_count
+          else
+            @ingredients_data[ing.category][ing.name] += (rli.quantity || 0) * menu.dinner_head_count
+          end
+        end
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_menu
