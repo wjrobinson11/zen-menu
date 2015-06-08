@@ -1,9 +1,28 @@
+.calendar-meal-header {
+  font-weight: bold;
+  font-size: 11px;
+}
+.calendar-recipe-title {
+  font-size: 11px;
+}
+.fc-row.fc-widget-content:hover {
+  cursor:pointer;
+}
+
+.add-to-shopping-list-label {
+  font-size: 11px;
+}
+
 .form-control.menu-form-recipe-dropdown {
   width: 100%;
   width: 100%;
   height: 25px;
   margin-top: 5px;
   font-size: 16px;
+}
+
+#menu-footer {
+  padding-top: 50px;
 }
 
 .form-control.menu-form-head-count {

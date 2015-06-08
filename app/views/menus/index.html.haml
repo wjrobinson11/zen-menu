@@ -3,9 +3,8 @@
   #dialog
   #calendar-container
     #calendar
-
-=link_to 'hello', 'javascript:void(0)', class: 'test-link'
-
+#menu-footer
+  =link_to 'Generate Shopping List', 'javascript:void(0)', class: 'generate-shopping-list btn btn-large btn-primary'
 :javascript
   jQuery(
     function() {
@@ -41,10 +40,21 @@
 
     $('#calendar').fullCalendar({
       events: #{@menu_data},
+      eventColor: 'transparent',
+      eventTextColor: 'black',
       eventRender: function(event, element) {
-        console.log(event.breakfast_title)
-        var new_description = '<div class="event-date" data-event_date="' + event.start._i + '" data-menu_id="' + event.id + '"></div>';
-        element.append(new_description);
+        element.find('.fc-content').remove();
+        var hiddenEventData = '<div class="event-date" data-event_date="' + event.start._i + '" data-menu_id="' + event.id + '"></div>';
+        var breakfastTitle = "<div class='calendar-meal-header'>" + event.breakfast_title + "</div>";
+        var breakfastRecipes = $.map(event.breakfast_recipes, function(el, index){return "<div class='calendar-recipe-title'>" + el + "</div>"}).join('');
+        var lunchTitle     = "<div class='calendar-meal-header'>" + event.lunch_title + "</div>";
+        var lunchRecipes = $.map(event.lunch_recipes, function(el, index){return "<div class='calendar-recipe-title'>" + el + "</div>"}).join('');
+        var dinnerTitle    = "<div class='calendar-meal-header'>" + event.dinner_title + "</div>";
+        var dinnerRecipes = $.map(event.dinner_recipes, function(el, index){return "<div class='calendar-recipe-title'>" + el + "</div>"}).join('');
+        var shoppingCart = '<input type="checkbox" class="shopping-cart-checkbox" data-menu_id=' + event.id + ' /><span class="add-to-shopping-list-label">&nbsp;Add to shopping list</span>'
+        var eventContent = breakfastTitle + breakfastRecipes + lunchTitle + lunchRecipes + dinnerTitle + dinnerRecipes + shoppingCart + hiddenEventData
+
+        element.append(eventContent);
       },
       dayClick: function(date, jsEvent, view) {
         var currentMenu = $('.event-date[data-event_date="' + date.format() + '"]')
@@ -60,14 +70,25 @@
             $('#dialog').load('/menus/new?serve_date=' + date.format().replace(/-/g, '')).dialog('open')
           }, 200)
         }
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+        var menuId = calEvent.id;
+        var date   = calEvent.start;
+        setTimeout( function(){
+          $('span.ui-dialog-title').text('Edit Menu for ' + date.format())
+          $('#dialog').load('/menus/' + menuId + '/edit').dialog('open')
+        }, 200)
       }
     })
 
-    $('.test-link').click(function(){
-      $('#dialog').dialog('open')
+    $('body').on('click', '.menu-form-back', function(e){
+      e.preventDefault();
+      jQuery('#dialog').dialog('close');
     })
 
-
+    $('.shopping-cart-checkbox').click( function(e){
+      e.stopPropagation();
+    })
 
   });
 

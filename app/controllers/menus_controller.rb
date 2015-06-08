@@ -10,9 +10,12 @@ class MenusController < ApplicationController
         id: menu.id,
         start: menu.serve_date,
         breakfast_title: "#{menu.format_breakfast_time} Breakfast (#{menu.breakfast_head_count} people)",
-        lunch_title: "#{menu.format_breakfast_time} Lunch (#{menu.breakfast_head_count} people)",
-        dinner_title: "#{menu.format_breakfast_time} Dinner (#{menu.breakfast_head_count} people)",
-        title: format_menu_content(menu)
+        breakfast_recipes: menu.breakfast_recipes.compact.map{|rec| "-#{rec.name}"},
+        lunch_title: "#{menu.format_lunch_time} Lunch (#{menu.lunch_head_count} people)",
+        lunch_recipes: menu.lunch_recipes.compact.map{|rec| "-#{rec.name}"},
+        dinner_title: "#{menu.format_dinner_time} Dinner (#{menu.dinner_head_count} people)",
+        dinner_recipes: menu.dinner_recipes.compact.map{|rec| "-#{rec.name}"},
+        eventColor: 'black'
       } # working here
     end.to_json
   end
