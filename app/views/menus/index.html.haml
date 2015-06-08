@@ -42,6 +42,7 @@
     $('#calendar').fullCalendar({
       events: #{@menu_data},
       eventRender: function(event, element) {
+        console.log(event.breakfast_title)
         var new_description = '<div class="event-date" data-event_date="' + event.start._i + '" data-menu_id="' + event.id + '"></div>';
         element.append(new_description);
       },
@@ -56,7 +57,7 @@
         } else {
             $('span.ui-dialog-title').text('New Menu for ' + date.format())
           setTimeout( function(){
-            $('#dialog').load('/menus/new?serve_date=' + date.format().replace('-','')).dialog('open')
+            $('#dialog').load('/menus/new?serve_date=' + date.format().replace(/-/g, '')).dialog('open')
           }, 200)
         }
       }

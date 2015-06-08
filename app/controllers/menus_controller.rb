@@ -9,8 +9,11 @@ class MenusController < ApplicationController
       {
         id: menu.id,
         start: menu.serve_date,
-        title: "#{menu.format_breakfast_time} Breakfast (#{menu.breakfast_recipe_ids.count} recipes)\n#{menu.format_lunch_time} Lunch (#{menu.lunch_recipe_ids.count} recipes)\n#{menu.format_dinner_time} Dinner (#{menu.dinner_recipe_ids.count} recipes)"
-      }
+        breakfast_title: "#{menu.format_breakfast_time} Breakfast (#{menu.breakfast_head_count} people)",
+        lunch_title: "#{menu.format_breakfast_time} Lunch (#{menu.breakfast_head_count} people)",
+        dinner_title: "#{menu.format_breakfast_time} Dinner (#{menu.breakfast_head_count} people)",
+        title: format_menu_content(menu)
+      } # working here
     end.to_json
   end
 
@@ -21,18 +24,13 @@ class MenusController < ApplicationController
 
   # GET /menus/new
   def new
-    @menu = Menu.new
+    @menu = Menu.new(serve_date: params[:serve_date])
     @recipes = Recipe.all
-    @serve_date = params[:serve_date]
-
-    render layout: false
   end
 
   # GET /menus/1/edit
   def edit
     @recipes = Recipe.all
-    @serve_date = @menu.serve_date
-    render layout: false
   end
 
   # POST /menus
@@ -95,6 +93,15 @@ class MenusController < ApplicationController
         {:dinner_recipe_ids => []},
         {:lunch_recipe_ids => []}
       )
+    end
+
+    def format_menu_content(menu)
+      "#{menu.format_breakfast_time} Breakfast (#{menu.breakfast_head_count} people)"\
+      "\n#{menu.breakfast_recipes.compact.map{|rec| "-#{rec.try(:name)}"}.join("\n")}"\
+      "\n#{menu.format_lunch_time} Lunch (#{menu.lunch_head_count} people)"\
+      "\n#{menu.lunch_recipes.compact.map{|rec| "-#{rec.try(:name)}"}.join("\n")}"\
+      "\n#{menu.format_dinner_time} Dinner (#{menu.dinner_head_count} people)"\
+      "\n#{menu.dinner_recipes.compact.map{|rec| "-#{rec.try(:name)}"}.join("\n")}"\
     end
 
     def format_recipe_ids
