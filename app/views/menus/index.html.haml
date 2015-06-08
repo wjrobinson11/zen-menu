@@ -1,0 +1,127 @@
+#menu-header
+#menu-body
+  #dialog
+  #calendar-container
+    #calendar
+#menu-footer
+  =link_to 'Generate Shopping List', 'javascript:void(0)', class: 'generate-shopping-list btn btn-large btn-primary'
+:javascript
+  jQuery(
+    function() {
+     jQuery("#dialog")
+      .dialog(
+       {
+        bgiframe: true,
+        autoOpen: false,
+        height: 600,
+        width: 400,
+        modal: true
+       }
+      );
+     jQuery('body')
+      .bind(
+       'click',
+       function(e){
+        if(
+         jQuery('#dialog').dialog('isOpen')
+         && !jQuery(e.target).is('.ui-dialog, a')
+         && !jQuery(e.target).closest('.ui-dialog').length
+        ){
+         jQuery('#dialog').dialog('close');
+        }
+       }
+      );
+    }
+  );
+
+  $(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar({
+      events: #{@menu_data},
+      eventColor: 'transparent',
+      eventTextColor: 'black',
+      eventRender: function(event, element) {
+        element.find('.fc-content').remove();
+        var hiddenEventData = '<div class="event-date" data-event_date="' + event.start._i + '" data-menu_id="' + event.id + '"></div>';
+        var breakfastTitle = "<div class='calendar-meal-header'>" + event.breakfast_title + "</div>";
+        var breakfastRecipes = $.map(event.breakfast_recipes, function(el, index){return "<div class='calendar-recipe-title'>" + el + "</div>"}).join('');
+        var lunchTitle     = "<div class='calendar-meal-header'>" + event.lunch_title + "</div>";
+        var lunchRecipes = $.map(event.lunch_recipes, function(el, index){return "<div class='calendar-recipe-title'>" + el + "</div>"}).join('');
+        var dinnerTitle    = "<div class='calendar-meal-header'>" + event.dinner_title + "</div>";
+        var dinnerRecipes = $.map(event.dinner_recipes, function(el, index){return "<div class='calendar-recipe-title'>" + el + "</div>"}).join('');
+        var shoppingCart = '<input type="checkbox" class="shopping-cart-checkbox" data-menu_id=' + event.id + ' /><span class="add-to-shopping-list-label">&nbsp;Add to shopping list</span>'
+        var eventContent = breakfastTitle + breakfastRecipes + lunchTitle + lunchRecipes + dinnerTitle + dinnerRecipes + shoppingCart + hiddenEventData
+
+        element.append(eventContent);
+      },
+      dayClick: function(date, jsEvent, view) {
+        var currentMenu = $('.event-date[data-event_date="' + date.format() + '"]')
+        if( currentMenu.length === 1 ){
+          var menuId = $(currentMenu).data('menu_id')
+          setTimeout( function(){
+            $('span.ui-dialog-title').text('Edit Menu for ' + date.format())
+            $('#dialog').load('/menus/' + menuId + '/edit').dialog('open')
+          }, 200)
+        } else {
+            $('span.ui-dialog-title').text('New Menu for ' + date.format())
+          setTimeout( function(){
+            $('#dialog').load('/menus/new?serve_date=' + date.format().replace(/-/g, '')).dialog('open')
+          }, 200)
+        }
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+        var menuId = calEvent.id;
+        var date   = calEvent.start;
+        setTimeout( function(){
+          $('span.ui-dialog-title').text('Edit Menu for ' + date.format())
+          $('#dialog').load('/menus/' + menuId + '/edit').dialog('open')
+        }, 200)
+      }
+    })
+
+    $('body').on('click', '.menu-form-back', function(e){
+      e.preventDefault();
+      jQuery('#dialog').dialog('close');
+    })
+
+    $('.shopping-cart-checkbox').click( function(e){
+      e.stopPropagation();
+    })
+
+  });
+
+/ %h1 Listing menus
+/ %table
+/   %thead
+/     %tr
+/       %th Serve date
+/       %th Breakfast time
+/       %th Lunch time
+/       %th Dinner time
+/       %th Breakfast head count
+/       %th Lunch head count
+/       %th Dinner head count
+/       %th Breakfast recipe ids
+/       %th Dinner recipe ids
+/       %th Lunch recipe ids
+/       %th{:colspan => "3"}
+/   %tbody
+/     - @menus.each do |menu|
+/       %tr
+/         %td= menu.serve_date
+/         %td= menu.breakfast_time
+/         %td= menu.lunch_time
+/         %td= menu.dinner_time
+/         %td= menu.breakfast_head_count
+/         %td= menu.lunch_head_count
+/         %td= menu.dinner_head_count
+/         %td= menu.breakfast_recipe_ids
+/         %td= menu.dinner_recipe_ids
+/         %td= menu.lunch_recipe_ids
+/         %td= link_to 'Show', menu
+/         %td= link_to 'Edit', edit_menu_path(menu)
+/         %td= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' }
+/ %br
+/   = link_to 'New Menu', new_menu_path
