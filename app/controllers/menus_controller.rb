@@ -1,3 +1,4 @@
+require 'bigdecimal'
 class MenusController < ApplicationController
   before_action :set_menu, only: [:show, :edit, :update, :destroy]
 
@@ -77,7 +78,7 @@ class MenusController < ApplicationController
 
 
   def shopping_list
-    menu_ids = params[:menu_ids]
+    menu_ids = params[:menu_ids].split(',')
     @menus            = Menu.where('id in (?)', menu_ids)
     @ingredients_data = {
       'Fruits'        => {},
@@ -90,38 +91,44 @@ class MenusController < ApplicationController
     }
     @menus.each do |menu|
       menu.breakfast_recipes.each do |recipe|
-        recipe.recipe_line_items.map do |rli|
+        recipe.recipe_line_items.each do |rli|
           ing = rli.ingredient
           next if ing.category.nil?
-          current_ingredient_quantity = @ingredients_data[ing.category][ing.name] rescue binding.pry
+          current_ingredient_quantity = @ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"]
+          added_ingredient_quantity   = (BigDecimal.new((rli.quantity || 0).to_s) * menu.breakfast_head_count).to_s("F")
           if current_ingredient_quantity.nil?
-            @ingredients_data[ing.category][ing.name] = (rli.quantity || 0) * menu.breakfast_head_count
+            @ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = added_ingredient_quantity
           else
-            @ingredients_data[ing.category][ing.name] += (rli.quantity || 0) * menu.breakfast_head_count
+            new_ingredient_quantity = (BigDecimal.new(current_ingredient_quantity.to_s) + BigDecimal.new(added_ingredient_quantity.to_s)).to_s("F")
+            @ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = new_ingredient_quantity
           end
         end
       end
       menu.lunch_recipes.each do |recipe|
-        recipe.recipe_line_items.map do |rli|
+        recipe.recipe_line_items.each do |rli|
           ing = rli.ingredient
           next if ing.category.nil?
-          current_ingredient_quantity = @ingredients_data[ing.category][ing.name] rescue binding.pry
+          current_ingredient_quantity = @ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"]
+          added_ingredient_quantity   = (BigDecimal.new((rli.quantity || 0).to_s) * menu.lunch_head_count).to_s("F")
           if current_ingredient_quantity.nil?
-            @ingredients_data[ing.category][ing.name] = (rli.quantity || 0) * menu.lunch_head_count
+            @ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = added_ingredient_quantity
           else
-            @ingredients_data[ing.category][ing.name] += (rli.quantity || 0) * menu.lunch_head_count
+            new_ingredient_quantity = (BigDecimal.new(current_ingredient_quantity.to_s) + BigDecimal.new(added_ingredient_quantity.to_s)).to_s("F")
+            @ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = new_ingredient_quantity
           end
         end
       end
       menu.dinner_recipes.each do |recipe|
-        recipe.recipe_line_items.map do |rli|
+        recipe.recipe_line_items.each do |rli|
           ing = rli.ingredient
           next if ing.category.nil?
-          current_ingredient_quantity = @ingredients_data[ing.category][ing.name] rescue binding.pry
+          current_ingredient_quantity = @ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"]
+          added_ingredient_quantity   = (BigDecimal.new((rli.quantity || 0).to_s) * menu.dinner_head_count).to_s("F")
           if current_ingredient_quantity.nil?
-            @ingredients_data[ing.category][ing.name] = (rli.quantity || 0) * menu.dinner_head_count
+            @ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = added_ingredient_quantity
           else
-            @ingredients_data[ing.category][ing.name] += (rli.quantity || 0) * menu.dinner_head_count
+            new_ingredient_quantity = (BigDecimal.new(current_ingredient_quantity.to_s) + BigDecimal.new(added_ingredient_quantity.to_s)).to_s("F")
+            @ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = new_ingredient_quantity
           end
         end
       end

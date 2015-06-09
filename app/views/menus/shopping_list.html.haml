@@ -1,1 +1,23 @@
-=@ingredients_data
+#shopping-list-header
+  %h3
+    Shopping list
+  %h4
+    For Menus on:
+    -@menus.each do |menu|
+      %br
+      =menu.serve_date.strftime('%b %e, %Y')
+#shopping-list-container
+  %ul.shopping-list
+    -@ingredients_data.each do |ingredient_category, ingredient_data|
+      %li
+        =ingredient_category
+        %ul
+          -ingredient_data.keys.sort.each do |ing_key|
+            %li
+              -ing_name = ing_key.split('|').first
+              -ing_unit = ing_key.split('|').last
+              .ing-name
+                =ing_name
+              .quantity-data
+                =ingredient_data[ing_key]
+                =ing_unit

@@ -90,6 +90,13 @@
       e.stopPropagation();
     })
 
+    $('.generate-shopping-list').click( function(){
+      var menuIds = $.map($('.shopping-cart-checkbox:checked'), function(el,ind){
+        return $(el).data('menu_id')
+      }).join(',');
+      window.location = '/shopping_list?menu_ids=' + menuIds;
+    });
+
   });
 
 / %h1 Listing menus
