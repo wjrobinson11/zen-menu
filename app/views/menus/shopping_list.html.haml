@@ -3,7 +3,7 @@
     Shopping list
   %h4
     For Menus on:
-    -@menus.each do |menu|
+    -@menus.order('serve_date').each do |menu|
       %br
       =menu.serve_date.strftime('%b %e, %Y')
 #shopping-list-container

@@ -12,6 +12,8 @@
 
 class Ingredient < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
+  validates :category, presence: true
+  validates :unit_of_measurement, presence: true
 
   has_many :recipe_line_items
   has_many :recipes, :through => :recipe_line_items

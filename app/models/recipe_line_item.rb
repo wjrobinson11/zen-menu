@@ -13,4 +13,7 @@
 class RecipeLineItem < ActiveRecord::Base
   belongs_to :ingredient
   belongs_to :recipe
+
+  validates :quantity, presence: true
+  validates :ingredient_id, presence: true
 end
