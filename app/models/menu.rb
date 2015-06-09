@@ -25,6 +25,7 @@ class Menu < ActiveRecord::Base
   validates :serve_date, presence: true
 
   after_initialize :set_defaults
+  before_save :reject_blank_recipe_ids
 
   def breakfast_recipes
     Recipe.where('id in (?)', breakfast_recipe_ids).sort
@@ -70,5 +71,11 @@ class Menu < ActiveRecord::Base
     self.breakfast_recipe_ids ||= []
     self.lunch_recipe_ids     ||= []
     self.dinner_recipe_ids    ||= []
+  end
+
+  def reject_blank_recipe_ids
+    self.breakfast_recipe_ids.reject!(&:blank?)
+    self.lunch_recipe_ids.reject!(&:blank?)
+    self.dinner_recipe_ids.reject!(&:blank?)
   end
 end
