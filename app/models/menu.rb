@@ -22,7 +22,7 @@ class Menu < ActiveRecord::Base
   serialize :lunch_recipe_ids
   serialize :dinner_recipe_ids
 
-  validates :serve_date, presence: true
+  validates :serve_date, presence: true, uniqueness: true
 
   after_initialize :set_defaults
   before_save :reject_blank_recipe_ids
