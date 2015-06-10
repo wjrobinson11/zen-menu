@@ -138,6 +138,7 @@ class MenusController < ApplicationController
   def print_sheet
     menu_ids = params[:menu_ids].split(',')
     @menus   = Menu.where('id in (?)', menu_ids).order('serve_date')
+    render layout: false
   end
 
   private
