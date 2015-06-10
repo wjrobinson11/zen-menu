@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get '/shopping_list' => 'menus#shopping_list'
+  get '/print_sheet'   => 'menus#print_sheet'
 
   resources :menus
 

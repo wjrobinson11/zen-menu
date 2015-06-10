@@ -135,6 +135,11 @@ class MenusController < ApplicationController
     end
   end
 
+  def print_sheet
+    menu_ids = params[:menu_ids].split(',')
+    @menus   = Menu.where('id in (?)', menu_ids).order('serve_date')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_menu
