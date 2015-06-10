@@ -5,6 +5,7 @@
     #calendar
 #menu-footer
   =link_to 'Generate Shopping List', 'javascript:void(0)', class: 'generate-shopping-list btn btn-large btn-primary'
+  =link_to 'Generate Print Sheet', 'javascript:void(0)', class: 'generate-print-sheet btn btn-large btn-warning'
 :javascript
   jQuery(
     function() {
@@ -51,8 +52,9 @@
         var lunchRecipes = $.map(event.lunch_recipes, function(el, index){return "<div class='calendar-recipe-title'>" + el + "</div>"}).join('');
         var dinnerTitle    = "<div class='calendar-meal-header'>" + event.dinner_title + "</div>";
         var dinnerRecipes = $.map(event.dinner_recipes, function(el, index){return "<div class='calendar-recipe-title'>" + el + "</div>"}).join('');
-        var shoppingCart = '<input type="checkbox" class="shopping-cart-checkbox" data-menu_id=' + event.id + ' /><span class="add-to-shopping-list-label">&nbsp;Add to shopping list</span>'
-        var eventContent = breakfastTitle + breakfastRecipes + lunchTitle + lunchRecipes + dinnerTitle + dinnerRecipes + shoppingCart + hiddenEventData
+        var shoppingCart = '<input type="checkbox" class="shopping-cart-checkbox" data-menu_id=' + event.id + ' /><span class="add-to-shopping-list-label">&nbsp;Add to shopping list</span><br />'
+        var printSheet = '<input type="checkbox" class="print-sheet-checkbox" data-menu_id=' + event.id + ' /><span class="add-to-print-sheet-label">&nbsp;Add to print sheet</span>'
+        var eventContent = breakfastTitle + breakfastRecipes + lunchTitle + lunchRecipes + dinnerTitle + dinnerRecipes + shoppingCart + printSheet + hiddenEventData
 
         element.append(eventContent);
       },
@@ -89,12 +91,22 @@
     $('.shopping-cart-checkbox').click( function(e){
       e.stopPropagation();
     })
+    $('.print-sheet-checkbox').click( function(e){
+      e.stopPropagation();
+    })
 
     $('.generate-shopping-list').click( function(){
       var menuIds = $.map($('.shopping-cart-checkbox:checked'), function(el,ind){
         return $(el).data('menu_id')
       }).join(',');
-      window.location = '/shopping_list?menu_ids=' + menuIds;
+      window.open( ('/shopping_list?menu_ids=' + menuIds), '_blank' )
+    });
+
+    $('.generate-print-sheet').click( function(){
+      var menuIds = $.map($('.print-sheet-checkbox:checked'), function(el,ind){
+        return $(el).data('menu_id')
+      }).join(',');
+      window.open( ('/print_sheet?menu_ids=' + menuIds), '_blank' )
     });
 
   });

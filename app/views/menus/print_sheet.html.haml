@@ -1,0 +1,44 @@
+!!!
+%html
+  %head
+    %title ZenRecipes
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .print-menu-container.clearfix
+      %table.table.print-menu-table
+        %tr
+          -@menus.each do |menu|
+            %td
+              %h4=menu.serve_date.strftime('%b %e, %Y')
+        %tr
+          -@menus.each do |menu|
+            %td
+              .print-meal-title
+                #{menu.format_breakfast_time} Breakfast
+              %ul
+                -menu.breakfast_recipes.each do |rec|
+                  %li
+                    =rec.name
+        %tr
+          -@menus.each do |menu|
+            %td
+              .print-meal-title
+                #{menu.format_lunch_time} Lunch
+              %ul
+                -menu.lunch_recipes.each do |rec|
+                  %li
+                    =rec.name
+        %tr
+          -@menus.each do |menu|
+            %td
+              .print-meal-title
+                #{menu.format_dinner_time} Dinner
+              %ul
+                -menu.dinner_recipes.each do |rec|
+                  %li
+                    =rec.name
+
+
+
