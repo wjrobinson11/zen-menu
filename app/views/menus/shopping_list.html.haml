@@ -19,5 +19,5 @@
               .ing-name
                 =ing_name
               .quantity-data
-                =ingredient_data[ing_key]
+                =ingredient_data[ing_key].gsub('.',',') # Todo customize this per account
                 =ing_unit
