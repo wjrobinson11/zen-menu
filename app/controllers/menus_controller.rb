@@ -29,12 +29,12 @@ class MenusController < ApplicationController
   # GET /menus/new
   def new
     @menu = Menu.new(serve_date: params[:serve_date])
-    @recipes = Recipe.all
+    @recipes = Recipe.order('lower(name)')
   end
 
   # GET /menus/1/edit
   def edit
-    @recipes = Recipe.all
+    @recipes = Recipe.order('lower(name)')
   end
 
   # POST /menus
