@@ -207,6 +207,8 @@ class MenusController < ApplicationController
         end
       end
     end
+
+    render layout: false
   end
 
   def print_sheet

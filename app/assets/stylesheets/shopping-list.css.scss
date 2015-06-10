@@ -1,3 +1,7 @@
+#shopping-list-header h3,#shopping-list-header h4 {
+  text-align: center;
+}
+
 ul.shopping-list {
   width: 350px;
 }
@@ -9,3 +13,13 @@ ul.shopping-list .ing-name {
 ul.shopping-list .quantity-data {
   float: right;
 }
+
+table.shopping-list-ingredients-table {
+  width: 800px;
+  margin: 0 auto;
+}
+
+table.shopping-list-ingredients-table ul {
+  list-style-type: none;
+}
+

@@ -1,23 +1,73 @@
-#shopping-list-header
-  %h3
-    Shopping list
-  %h4
-    For Menus on:
-    -@menus.order('serve_date').each do |menu|
-      %br
-      =menu.serve_date.strftime('%b %e, %Y')
-#shopping-list-container
-  %ul.shopping-list
-    -@ingredients_data.each do |ingredient_category, ingredient_data|
-      %li
-        =ingredient_category
-        %ul
-          -ingredient_data.keys.sort.each do |ing_key|
-            %li
-              -ing_name = ing_key.split('|').first
-              -ing_unit = ing_key.split('|').last
-              .ing-name
-                =ing_name
-              .quantity-data
-                =ingredient_data[ing_key].gsub('.',',') # Todo customize this per account
-                =ing_unit
+
+!!!
+%html
+  %head
+    %title ZenRecipes
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    #shopping-list-header
+      %h3
+        Shopping list
+      %h4
+        For Menus on:
+        -@menus.order('serve_date').each do |menu|
+          %br
+          =menu.serve_date.strftime('%b %e, %Y')
+    #shopping-list-container
+      / %ul.shopping-list
+      /   -@ingredients_data.each do |ingredient_category, ingredient_data|
+      /     %li
+      /       =ingredient_category
+      /       %ul
+      /         -ingredient_data.keys.sort.each do |ing_key|
+      /           %li
+      /             -ing_name = ing_key.split('|').first
+      /             -ing_unit = ing_key.split('|').last
+      /             .ing-name
+      /               =ing_name
+      /             .quantity-data
+      /               =ingredient_data[ing_key].gsub('.',',') # Todo customize this per account
+      /               =ing_unit
+
+      %table.table.shopping-list-ingredients-table
+        %tr
+          -@ingredients_data.keys[0..2].each do |category|
+            -ing_data = @ingredients_data[category]
+            %td
+              .print-meal-ingredient-category
+                =category
+              %ul.list-group
+                -ing_data.each do |key, value|
+                  %li.ingredients-table-li
+                    =key.split('|').first
+                    %span.print-meal-ingredient-quantity
+                      =value.gsub('.',',')
+                      =key.split('|').last
+        %tr
+          -@ingredients_data.keys[3..5].each do |category|
+            -ing_data = @ingredients_data[category]
+            %td
+              .print-meal-ingredient-category
+                =category
+              %ul.list-group
+                -ing_data.each do |key, value|
+                  %li.ingredients-table-li
+                    =key.split('|').first
+                    %span.print-meal-ingredient-quantity
+                      =value.gsub('.',',')
+                      =key.split('|').last
+        %tr
+          -@ingredients_data.keys[6..6].each do |category|
+            -ing_data = @ingredients_data[category]
+            %td
+              .print-meal-ingredient-category
+                =category
+              %ul.list-group
+                -ing_data.each do |key, value|
+                  %li.ingredients-table-li
+                    =key.split('|').first
+                    %span.print-meal-ingredient-quantity
+                      =value.gsub('.',',')
+                      =key.split('|').last
