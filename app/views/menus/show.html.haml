@@ -1,34 +1,96 @@
-%p#notice= notice
-%p
-  %strong Serve date:
-  = @menu.serve_date
-%p
-  %strong Breakfast time:
-  = @menu.breakfast_time
-%p
-  %strong Lunch time:
-  = @menu.lunch_time
-%p
-  %strong Dinner time:
-  = @menu.dinner_time
-%p
-  %strong Breakfast head count:
-  = @menu.breakfast_head_count
-%p
-  %strong Lunch head count:
-  = @menu.lunch_head_count
-%p
-  %strong Dinner head count:
-  = @menu.dinner_head_count
-%p
-  %strong Breakfast recipe ids:
-  = @menu.breakfast_recipe_ids
-%p
-  %strong Dinner recipe ids:
-  = @menu.dinner_recipe_ids
-%p
-  %strong Lunch recipe ids:
-  = @menu.lunch_recipe_ids
-= link_to 'Edit', edit_menu_path(@menu)
-|
-\#{link_to 'Back', menus_path}
+!!!
+%html
+  %head
+    %title ZenRecipes
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .print-menu-container.clearfix
+      %table.table.print-menu-table
+        %tr
+          %td
+            %h4
+              =@menu.serve_date.strftime('%b %e, %Y')
+
+
+        %tr
+          %td
+            .print-meal-title
+              #{@menu.format_breakfast_time} Breakfast (#{@menu.breakfast_head_count} people)
+            .print-meal-subheader
+              Recipes:
+            %ul
+              -@menu.breakfast_recipes.each do |rec|
+                %li
+                  =rec.name
+            .print-meal-subheader
+              Ingredients:
+            %table.table.ingredients-table
+              %tr
+                -@breakfast_ingredients_data.each do |category, ing_data|
+                  %td
+                    .print-meal-ingredient-category
+                      =category
+                    %ul.list-group
+                      -ing_data.each do |key, value|
+                        %li.ingredients-table-li
+                          =key.split('|').first
+                          %span.print-meal-ingredient-quantity
+                            =value.gsub('.',',')
+                            =key.split('|').last
+
+        %tr
+          %td
+            .print-meal-title
+              #{@menu.format_lunch_time} Lunch (#{@menu.lunch_head_count} people)
+            .print-meal-subheader
+              Recipes:
+            %ul
+              -@menu.lunch_recipes.each do |rec|
+                %li
+                  =rec.name
+            .print-meal-subheader
+              Ingredients:
+            %table.table.ingredients-table
+              %tr
+                -@lunch_ingredients_data.each do |category, ing_data|
+                  %td
+                    .print-meal-ingredient-category
+                      =category
+                    %ul.list-group
+                      -ing_data.each do |key, value|
+                        %li.ingredients-table-li
+                          =key.split('|').first
+                          %span.print-meal-ingredient-quantity
+                            =value.gsub('.',',')
+                            =key.split('|').last
+
+        %tr
+          %td
+            .print-meal-title
+              #{@menu.format_dinner_time} Dinner (#{@menu.dinner_head_count} people)
+            .print-meal-subheader
+              Recipes:
+            %ul
+              -@menu.dinner_recipes.each do |rec|
+                %li
+                  =rec.name
+            .print-meal-subheader
+              Ingredients:
+            %table.table.ingredients-table
+              %tr
+                -@dinner_ingredients_data.each do |category, ing_data|
+                  %td
+                    .print-meal-ingredient-category
+                      =category
+                    %ul.list-group
+                      -ing_data.each do |key, value|
+                        %li.ingredients-table-li
+                          =key.split('|').first
+                          %span.print-meal-ingredient-quantity
+                            =value.gsub('.',',')
+                            =key.split('|').last
+
+
+

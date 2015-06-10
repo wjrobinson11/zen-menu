@@ -24,6 +24,80 @@ class MenusController < ApplicationController
   # GET /menus/1
   # GET /menus/1.json
   def show
+    @breakfast_ingredients_data = {
+      'Fruits'        => {},
+      'Vegetables'    => {},
+      'Cereals'       => {},
+      'Milk Products' => {},
+      'Groceries'     => {},
+      'Proteins'      => {},
+      'Others'        => {}
+    }
+    @lunch_ingredients_data = {
+      'Fruits'        => {},
+      'Vegetables'    => {},
+      'Cereals'       => {},
+      'Milk Products' => {},
+      'Groceries'     => {},
+      'Proteins'      => {},
+      'Others'        => {}
+    }
+    @dinner_ingredients_data = {
+      'Fruits'        => {},
+      'Vegetables'    => {},
+      'Cereals'       => {},
+      'Milk Products' => {},
+      'Groceries'     => {},
+      'Proteins'      => {},
+      'Others'        => {}
+    }
+
+    @menu.breakfast_recipes.each do |recipe|
+      recipe.recipe_line_items.each do |rli|
+        ing = rli.ingredient
+        next if ing.category.nil?
+        current_ingredient_quantity = @breakfast_ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"]
+        added_ingredient_quantity   = (BigDecimal.new((rli.quantity || 0).to_s) * @menu.breakfast_head_count).to_s("F")
+        if current_ingredient_quantity.nil?
+          @breakfast_ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = added_ingredient_quantity
+        else
+          new_ingredient_quantity = (BigDecimal.new(current_ingredient_quantity.to_s) + BigDecimal.new(added_ingredient_quantity.to_s)).to_s("F")
+          @breakfast_ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = new_ingredient_quantity
+        end
+      end
+    end
+
+    @menu.lunch_recipes.each do |recipe|
+      recipe.recipe_line_items.each do |rli|
+        ing = rli.ingredient
+        next if ing.category.nil?
+        current_ingredient_quantity = @lunch_ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"]
+        added_ingredient_quantity   = (BigDecimal.new((rli.quantity || 0).to_s) * @menu.lunch_head_count).to_s("F")
+        if current_ingredient_quantity.nil?
+          @lunch_ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = added_ingredient_quantity
+        else
+          new_ingredient_quantity = (BigDecimal.new(current_ingredient_quantity.to_s) + BigDecimal.new(added_ingredient_quantity.to_s)).to_s("F")
+          @lunch_ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = new_ingredient_quantity
+        end
+      end
+    end
+
+    @menu.dinner_recipes.each do |recipe|
+      recipe.recipe_line_items.each do |rli|
+        ing = rli.ingredient
+        next if ing.category.nil?
+        current_ingredient_quantity = @dinner_ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"]
+        added_ingredient_quantity   = (BigDecimal.new((rli.quantity || 0).to_s) * @menu.dinner_head_count).to_s("F")
+        if current_ingredient_quantity.nil?
+          @dinner_ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = added_ingredient_quantity
+        else
+          new_ingredient_quantity = (BigDecimal.new(current_ingredient_quantity.to_s) + BigDecimal.new(added_ingredient_quantity.to_s)).to_s("F")
+          @dinner_ingredients_data[ing.category]["#{ing.name}|#{ing.unit_of_measurement}"] = new_ingredient_quantity
+        end
+      end
+    end
+
+    render layout: false
   end
 
   # GET /menus/new

@@ -52,9 +52,10 @@
         var lunchRecipes = $.map(event.lunch_recipes, function(el, index){return "<div class='calendar-recipe-title'>" + el + "</div>"}).join('');
         var dinnerTitle    = "<div class='calendar-meal-header'>" + event.dinner_title + "</div>";
         var dinnerRecipes = $.map(event.dinner_recipes, function(el, index){return "<div class='calendar-recipe-title'>" + el + "</div>"}).join('');
+        var detailedViewLink = '<a class="menu-show-link" href="/menus/' + event.id + '" target="_blank">Detailed View</a>'
         var shoppingCart = '<input type="checkbox" class="shopping-cart-checkbox" data-menu_id=' + event.id + ' /><span class="add-to-shopping-list-label">&nbsp;Add to shopping list</span><br />'
         var printSheet = '<input type="checkbox" class="print-sheet-checkbox" data-menu_id=' + event.id + ' /><span class="add-to-print-sheet-label">&nbsp;Add to print sheet</span>'
-        var eventContent = breakfastTitle + breakfastRecipes + lunchTitle + lunchRecipes + dinnerTitle + dinnerRecipes + shoppingCart + printSheet + hiddenEventData
+        var eventContent = breakfastTitle + breakfastRecipes + lunchTitle + lunchRecipes + dinnerTitle + dinnerRecipes + detailedViewLink + shoppingCart + printSheet + hiddenEventData
 
         element.append(eventContent);
       },
@@ -92,6 +93,9 @@
       e.stopPropagation();
     })
     $('.print-sheet-checkbox').click( function(e){
+      e.stopPropagation();
+    })
+    $('.menu-show-link').click( function(e){
       e.stopPropagation();
     })
 

@@ -10,3 +10,28 @@
 .print-meal-title {
   font-weight: bold;
 }
+
+.table.ingredients-table {
+  background: none;
+}
+
+.print-meal-subheader {
+  margin-left: 8px;
+}
+
+.ingredients-table .list-group {
+  list-style-type: none;
+}
+
+.print-meal-ingredient-category {
+  text-decoration: underline;
+}
+
+.print-meal-ingredient-quantity {
+  font-weight: bold;
+  float: right;
+}
+
+.print-menu-table .ingredients-table-li {
+  font-size: 12px;
+}
