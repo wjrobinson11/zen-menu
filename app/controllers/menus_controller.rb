@@ -174,7 +174,7 @@ class MenusController < ApplicationController
     end
 
     def format_recipe_ids
-      params[:menu][:breakfast_recipe_ids] = [params[:menu][:breakfast_recipe_1], params[:menu][:breakfast_recipe_2]].compact
+      params[:menu][:breakfast_recipe_ids] = [params[:menu][:breakfast_recipe_1], params[:menu][:breakfast_recipe_2], params[:menu][:breakfast_recipe_3]].compact
       params[:menu][:lunch_recipe_ids]     = [params[:menu][:lunch_recipe_1], params[:menu][:lunch_recipe_2], params[:menu][:lunch_recipe_3]].compact
       params[:menu][:dinner_recipe_ids]    = [params[:menu][:dinner_recipe_1], params[:menu][:dinner_recipe_2], params[:menu][:dinner_recipe_3]].compact
     end
