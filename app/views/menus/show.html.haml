@@ -6,7 +6,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    .print-menu-container.clearfix
+    .clearfix.daily-menu
       %table.table.print-menu-table
         %tr
           %td
@@ -14,31 +14,31 @@
               =@menu.serve_date.strftime('%b %e, %Y')
 
 
-        %tr
-          %td
-            .print-meal-title
-              #{@menu.format_breakfast_time} Breakfast (#{@menu.breakfast_head_count} people)
-            .print-meal-subheader
-              Recipes:
-            %ul
-              -@menu.breakfast_recipes.each do |rec|
-                %li
-                  =rec.name
-            .print-meal-subheader
-              Ingredients:
-            %table.table.ingredients-table
-              %tr
-                -@breakfast_ingredients_data.each do |category, ing_data|
-                  %td
-                    .print-meal-ingredient-category
-                      =category
-                    %ul.list-group
-                      -ing_data.each do |key, value|
-                        %li.ingredients-table-li
-                          =key.split('|').first
-                          %span.print-meal-ingredient-quantity
-                            =value.gsub('.',',')
-                            =key.split('|').last
+        / %tr
+        /   %td
+        /     .print-meal-title
+        /       #{@menu.format_breakfast_time} Breakfast (#{@menu.breakfast_head_count} people)
+        /     .print-meal-subheader
+        /       Recipes:
+        /     %ul
+        /       -@menu.breakfast_recipes.each do |rec|
+        /         %li
+        /           =rec.name
+        /     .print-meal-subheader
+        /       Ingredients:
+        /     %table.table.ingredients-table
+        /       %tr
+        /         -@breakfast_ingredients_data.each do |category, ing_data|
+        /           %td
+        /             .print-meal-ingredient-category
+        /               =category
+        /             %ul.list-group
+        /               -ing_data.each do |key, value|
+        /                 %li.ingredients-table-li
+        /                   =key.split('|').first
+        /                   %span.print-meal-ingredient-quantity
+        /                     =value.gsub('.',',')
+        /                     =key.split('|').last
 
         %tr
           %td
@@ -48,23 +48,30 @@
               Recipes:
             %ul
               -@menu.lunch_recipes.each do |rec|
-                %li
+                %li.daily-menu-recipe-name
                   =rec.name
-            .print-meal-subheader
-              Ingredients:
-            %table.table.ingredients-table
-              %tr
-                -@lunch_ingredients_data.each do |category, ing_data|
-                  %td
-                    .print-meal-ingredient-category
-                      =category
-                    %ul.list-group
-                      -ing_data.each do |key, value|
-                        %li.ingredients-table-li
-                          =key.split('|').first
-                          %span.print-meal-ingredient-quantity
-                            =value.gsub('.',',')
-                            =key.split('|').last
+                  %br
+                  %ul.clearfix
+                    -rec.recipe_line_items.each do |rli|
+                      %li.daily-menu-ingredient-quantity
+                        #{rli.ingredient.name}
+                        .daily-menu-ingredient-amount
+                          #{(BigDecimal.new((rli.quantity || 0).to_s) * @menu.lunch_head_count).to_s("F").gsub('.',',')} #{rli.ingredient.unit_of_measurement}
+            / .print-meal-subheader
+            /   Ingredients:
+            / %table.table.ingredients-table
+            /   %tr
+            /     -@lunch_ingredients_data.each do |category, ing_data|
+            /       %td
+            /         .print-meal-ingredient-category
+            /           =category
+            /         %ul.list-group
+            /           -ing_data.each do |key, value|
+            /             %li.ingredients-table-li
+            /               =key.split('|').first
+            /               %span.print-meal-ingredient-quantity
+            /                 =value.gsub('.',',')
+            /                 =key.split('|').last
 
         %tr
           %td
@@ -74,23 +81,30 @@
               Recipes:
             %ul
               -@menu.dinner_recipes.each do |rec|
-                %li
+                %li.daily-menu-recipe-name
                   =rec.name
-            .print-meal-subheader
-              Ingredients:
-            %table.table.ingredients-table
-              %tr
-                -@dinner_ingredients_data.each do |category, ing_data|
-                  %td
-                    .print-meal-ingredient-category
-                      =category
-                    %ul.list-group
-                      -ing_data.each do |key, value|
-                        %li.ingredients-table-li
-                          =key.split('|').first
-                          %span.print-meal-ingredient-quantity
-                            =value.gsub('.',',')
-                            =key.split('|').last
+                  %br
+                  %ul.clearfix
+                    -rec.recipe_line_items.each do |rli|
+                      %li.daily-menu-ingredient-quantity
+                        #{rli.ingredient.name}
+                        .daily-menu-ingredient-amount
+                          #{(BigDecimal.new((rli.quantity || 0).to_s) * @menu.dinner_head_count).to_s("F").gsub('.',',')} #{rli.ingredient.unit_of_measurement}
+            / .print-meal-subheader
+            /   Ingredients:
+            / %table.table.ingredients-table
+            /   %tr
+            /     -@dinner_ingredients_data.each do |category, ing_data|
+            /       %td
+            /         .print-meal-ingredient-category
+            /           =category
+            /         %ul.list-group
+            /           -ing_data.each do |key, value|
+            /             %li.ingredients-table-li
+            /               =key.split('|').first
+            /               %span.print-meal-ingredient-quantity
+            /                 =value.gsub('.',',')
+            /                 =key.split('|').last
 
 
 

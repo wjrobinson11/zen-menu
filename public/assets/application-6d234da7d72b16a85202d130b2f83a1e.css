@@ -6791,25 +6791,59 @@ label {
 }
 
 /* line 12, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+.daily-menu {
+  font-size: 22px;
+}
+
+/* line 16, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+.daily-menu-recipe-name {
+  text-decoration: underline;
+}
+
+/* line 20, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+.daily-menu-ingredient-quantity {
+  width: 400px;
+  float: left;
+}
+
+/* line 25, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+.daily-menu-ingredient-amount {
+  float: right;
+  margin-right: 50px;
+}
+
+/* line 30, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+.menu-show-link {
+  font-size: 11px;
+  display: block;
+}
+
+/* line 35, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 .add-to-shopping-list-label {
   font-size: 11px;
 }
 
-/* line 16, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+/* line 38, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+.add-to-print-sheet-label {
+  font-size: 11px;
+}
+
+/* line 42, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 .form-control.menu-form-recipe-dropdown {
   width: 100%;
   width: 100%;
   height: 25px;
+  padding: 0px;
   margin-top: 5px;
   font-size: 16px;
 }
 
-/* line 24, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+/* line 51, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 #menu-footer {
   padding-top: 50px;
 }
 
-/* line 28, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+/* line 55, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 .form-control.menu-form-head-count {
   width: 60px;
   height: 20px;
@@ -6819,38 +6853,38 @@ label {
   float: none;
 }
 
-/* line 37, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+/* line 64, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 #menu-form-container {
   width: 350px;
 }
 
-/* line 41, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+/* line 68, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 .menu-form-time-container {
   float: left;
   width: 50%;
 }
 
-/* line 46, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+/* line 73, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 .menu-form-head-count-container {
   float: right;
   text-align: right;
   width: 50%;
 }
 
-/* line 52, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+/* line 79, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 .menu-form-header {
   margin: 3px 0px;
   font-size: 23px;
   text-decoration: underline;
 }
 
-/* line 58, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+/* line 85, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 #menu_breakfast_time_4i, #menu_breakfast_time_5i, #menu_lunch_time_4i, #menu_lunch_time_5i, #menu_dinner_time_4i, #menu_dinner_time_5i {
   display: inline;
   font-size: 12px;
   height: 20px;
   width: 48px;
-  padding: 8px 12px;
+  padding: 0px;
   line-height: 1.42857143;
   color: #333333;
   background-color: #ffffff;
@@ -6864,16 +6898,62 @@ label {
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-/* line 77, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+/* line 104, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 a.menu-form-back {
   color: #a14900;
   float: left;
   margin-top: 9px;
 }
 
-/* line 83, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
+/* line 110, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/menu.css.scss */
 .menu-form-submit {
   float: right;
+}
+/* line 1, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/print-menu.css.scss */
+.print-menu-container {
+  padding-top: 100px;
+}
+
+/* line 5, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/print-menu.css.scss */
+.print-menu-table {
+  width: 900px;
+  margin: 0 auto;
+}
+
+/* line 10, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/print-menu.css.scss */
+.print-meal-title {
+  font-weight: bold;
+}
+
+/* line 14, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/print-menu.css.scss */
+.table.ingredients-table {
+  background: none;
+}
+
+/* line 18, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/print-menu.css.scss */
+.print-meal-subheader {
+  margin-left: 8px;
+}
+
+/* line 22, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/print-menu.css.scss */
+.ingredients-table .list-group {
+  list-style-type: none;
+}
+
+/* line 26, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/print-menu.css.scss */
+.print-meal-ingredient-category {
+  text-decoration: underline;
+}
+
+/* line 30, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/print-menu.css.scss */
+.print-meal-ingredient-quantity {
+  font-weight: bold;
+  float: right;
+}
+
+/* line 35, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/print-menu.css.scss */
+.print-menu-table .ingredients-table-li {
+  font-size: 12px;
 }
 /* line 1, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/recipes.css.scss */
 form.edit_recipe, form.new_recipe {
@@ -6958,18 +7038,34 @@ form.edit_recipe, form.new_recipe {
   clear: both;
 }
 /* line 1, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/shopping-list.css.scss */
+#shopping-list-header h3, #shopping-list-header h4 {
+  text-align: center;
+}
+
+/* line 5, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/shopping-list.css.scss */
 ul.shopping-list {
   width: 350px;
 }
 
-/* line 5, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/shopping-list.css.scss */
+/* line 9, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/shopping-list.css.scss */
 ul.shopping-list .ing-name {
   float: left;
 }
 
-/* line 9, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/shopping-list.css.scss */
+/* line 13, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/shopping-list.css.scss */
 ul.shopping-list .quantity-data {
   float: right;
+}
+
+/* line 17, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/shopping-list.css.scss */
+table.shopping-list-ingredients-table {
+  width: 800px;
+  margin: 0 auto;
+}
+
+/* line 22, /Users/wes/rails_projects/zen-menu/app/assets/stylesheets/shopping-list.css.scss */
+table.shopping-list-ingredients-table ul {
+  list-style-type: none;
 }
 /*!
  * jQuery UI CSS Framework 1.11.4

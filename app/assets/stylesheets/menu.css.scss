@@ -9,6 +9,24 @@
   cursor:pointer;
 }
 
+.daily-menu {
+  font-size: 22px;
+}
+
+.daily-menu-recipe-name {
+  text-decoration: underline;
+}
+
+.daily-menu-ingredient-quantity {
+  width: 400px;
+  float: left;
+}
+
+.daily-menu-ingredient-amount {
+  float: right;
+  margin-right: 50px;
+}
+
 .menu-show-link {
   font-size: 11px;
   display: block;
